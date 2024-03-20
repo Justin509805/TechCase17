@@ -43,8 +43,8 @@ class MorseCodeApp extends StatefulWidget {
 }
 
 class _MorseCodeAppState extends State<MorseCodeApp> {
-  String inputText = '';
   String morseCode = '';
+  String decodedText = '';
 
   void translateInputToMorseCode(String signal) {
     setState(() {
@@ -58,8 +58,20 @@ class _MorseCodeAppState extends State<MorseCodeApp> {
 
   void decodeMorseCode() {
     setState(() {
-      inputText = MorseCodeTranslator.morseCodeToText(morseCode);
+      String newText = MorseCodeTranslator.morseCodeToText(morseCode);
+      decodedText += ' $newText'; // Append new text to existing decoded text
+    });
+  }
+
+  void clearMorseCode() {
+    setState(() {
       morseCode = '';
+    });
+  }
+
+  void clearAll() {
+    setState(() {
+      decodedText = '';
     });
   }
 
@@ -75,11 +87,8 @@ class _MorseCodeAppState extends State<MorseCodeApp> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
-              onChanged: (value) {
-                setState(() {
-                  inputText = value;
-                });
-              },
+              readOnly: true,
+              controller: TextEditingController(text: morseCode),
               decoration: InputDecoration(
                 hintText: 'Enter Morse code',
               ),
@@ -111,12 +120,26 @@ class _MorseCodeAppState extends State<MorseCodeApp> {
               child: Text('Decode Morse Code'),
             ),
             SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                clearMorseCode();
+              },
+              child: Text('Clear Morse Code'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                clearAll();
+              },
+              child: Text('Clear All'),
+            ),
+            SizedBox(height: 20),
             Text(
               'Decoded Text:',
               style: TextStyle(fontSize: 18),
             ),
             Text(
-              inputText,
+              decodedText,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ],
