@@ -76,108 +76,122 @@ class _MorseCodeAppState extends State<MorseCodeApp> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Morse Code Translator'),
-      ),
-      backgroundColor: Colors.blue, // Set background color of the Scaffold
-      body: Center(
-        child: Container(
-          margin: EdgeInsets.all(50), // Add margin
-          constraints: BoxConstraints(maxWidth: 300), // Limit width
-          decoration: BoxDecoration(
-            color: Colors.white, // Change background color to white
-            borderRadius: BorderRadius.circular(16), // Add border radius for a nicer look
-          ),
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextField(
-                readOnly: true,
-                controller: TextEditingController(text: morseCode),
-                decoration: InputDecoration(
-                  hintText: 'Enter Morse code',
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text('Morse Code Translator'),
+    ),
+    backgroundColor: Colors.blue, // Set background color of the Scaffold
+    body: Center(
+      child: Container(
+        margin: const EdgeInsets.all(50), // Add margin
+        constraints: const BoxConstraints(maxWidth: 300), // Limit width
+        decoration: BoxDecoration(
+          color: Colors.white, // Change background color to white
+          borderRadius: BorderRadius.circular(16), // Add border radius for a nicer look
+        ),
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'MORSE', // Title for the text input
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+                        const Text(
+              'DECODER', // Title for the buttons
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+            const SizedBox(height: 10), // Add spacing between title and text input
+            TextField(
+              readOnly: true,
+              controller: TextEditingController(text: morseCode),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      translateInputToMorseCode('.');
+                    },
+                    child: const Text(
+                      '.', 
+                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        translateInputToMorseCode('.');
-                      },
-                      child: Text(
-                        '.', 
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      translateInputToMorseCode('-');
+                    },
+                    child: const Text(
+                      '-', 
+                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        translateInputToMorseCode('-');
-                      },
-                      child: Text(
-                        '-', 
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),                  
-                    ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),// Add spacing between title and buttons
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      decodeMorseCode();
+                    },
+                    child: const Text('Decode'),
                   ),
-                ],
-              ),
-              SizedBox(height: 20),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        decodeMorseCode();
-                      },
-                      child: Text('Decode Morse Code'),
-                    ),
+                ),
+                const SizedBox(height: 5),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      clearMorseCode();
+                    },
+                    child: const Text('Clear'),
                   ),
-                  SizedBox(height: 5),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        clearMorseCode();
-                      },
-                      child: Text('Clear Morse Code'),
-                    ),
+                ),
+                const SizedBox(height: 5),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      clearAll();
+                    },
+                    child: const Text('Clear All'),
                   ),
-                  SizedBox(height: 5),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        clearAll();
-                      },
-                      child: Text('Clear All'),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 5),
-              Text(
-                'Decoded Text:',
-                style: TextStyle(fontSize: 18),
-              ),
-              Text(
-                decodedText,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 25),
+            const Text(
+              'Results will appear here',
+              style: TextStyle(fontSize: 18),
+            ),
+            Text(
+              decodedText,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }
