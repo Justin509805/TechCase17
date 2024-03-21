@@ -81,68 +81,101 @@ class _MorseCodeAppState extends State<MorseCodeApp> {
       appBar: AppBar(
         title: Text('Morse Code Translator'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              readOnly: true,
-              controller: TextEditingController(text: morseCode),
-              decoration: InputDecoration(
-                hintText: 'Enter Morse code',
+      backgroundColor: Colors.blue, // Set background color of the Scaffold
+      body: Center(
+        child: Container(
+          margin: EdgeInsets.all(50), // Add margin
+          constraints: BoxConstraints(maxWidth: 300), // Limit width
+          decoration: BoxDecoration(
+            color: Colors.white, // Change background color to white
+            borderRadius: BorderRadius.circular(16), // Add border radius for a nicer look
+          ),
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                readOnly: true,
+                controller: TextEditingController(text: morseCode),
+                decoration: InputDecoration(
+                  hintText: 'Enter Morse code',
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    translateInputToMorseCode('.');
-                  },
-                  child: Text('Dot'),
-                ),
-                SizedBox(width: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    translateInputToMorseCode('-');
-                  },
-                  child: Text('Dash'),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                decodeMorseCode();
-              },
-              child: Text('Decode Morse Code'),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                clearMorseCode();
-              },
-              child: Text('Clear Morse Code'),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                clearAll();
-              },
-              child: Text('Clear All'),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Decoded Text:',
-              style: TextStyle(fontSize: 18),
-            ),
-            Text(
-              decodedText,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ],
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        translateInputToMorseCode('.');
+                      },
+                      child: Text(
+                        '.', 
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        translateInputToMorseCode('-');
+                      },
+                      child: Text(
+                        '-', 
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),                  
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        decodeMorseCode();
+                      },
+                      child: Text('Decode Morse Code'),
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        clearMorseCode();
+                      },
+                      child: Text('Clear Morse Code'),
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        clearAll();
+                      },
+                      child: Text('Clear All'),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5),
+              Text(
+                'Decoded Text:',
+                style: TextStyle(fontSize: 18),
+              ),
+              Text(
+                decodedText,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
         ),
       ),
     );
