@@ -126,7 +126,7 @@ Widget build(BuildContext context) {
                   child: GestureDetector(
                     onLongPress: () {
                       // Start a timer for 1 second, then translate into "-"
-                      _timer = Timer(Duration(milliseconds: 150), () {
+                      _timer = Timer(const Duration(milliseconds: 150), () {
                         translateInputToMorseCode('-');
                       });
                     },
@@ -140,7 +140,7 @@ Widget build(BuildContext context) {
                         // Translate into "." when tapped
                         translateInputToMorseCode('.');
                       },
-                      child: Text(''),
+                      child: const Text(''),
                     ),
                   ),
                 ),
@@ -188,7 +188,7 @@ Widget build(BuildContext context) {
             ),
             Text(
               decodedText,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ],
         ),
