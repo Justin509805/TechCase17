@@ -122,29 +122,14 @@ Widget build(BuildContext context) {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      translateInputToMorseCode('.');
-                    },
-                    child: const Text(
-                      '.', 
-                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
                       translateInputToMorseCode('-');
                     },
-                    child: const Text(
-                      '-', 
-                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
+                    child: Text(''),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 20),// Add spacing between title and buttons
+            const SizedBox(height: 20), // Remove this SizedBox
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
