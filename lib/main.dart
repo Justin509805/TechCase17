@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 void main() {
   runApp(MyApp());
@@ -45,6 +46,8 @@ class MorseCodeApp extends StatefulWidget {
 class _MorseCodeAppState extends State<MorseCodeApp> {
   String morseCode = '';
   String decodedText = '';
+
+  Timer? _timer;
 
   void translateInputToMorseCode(String signal) {
     setState(() {
@@ -116,19 +119,33 @@ Widget build(BuildContext context) {
               controller: TextEditingController(text: morseCode),
             ),
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      translateInputToMorseCode('-');
-                    },
-                    child: Text(''),
-                  ),
-                ),
-              ],
-            ),
+Row(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    Expanded(
+      child: GestureDetector(
+        onLongPress: () {
+          // Start a timer for 1 second, then translate into "-"
+          _timer = Timer(Duration(milliseconds: 150), () {
+            translateInputToMorseCode('-');
+          });
+        },
+        onLongPressEnd: (_) {
+          // Cancel the timer if the long press is ended before 1 second
+          // This prevents translating into "-" if the press is released early
+          _timer?.cancel();
+        },
+        child: ElevatedButton(
+          onPressed: () {
+            // Translate into "." when tapped
+            translateInputToMorseCode('.');
+          },
+          child: Text(''),
+        ),
+      ),
+    ),
+  ],
+),
             const SizedBox(height: 20), // Remove this SizedBox
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
